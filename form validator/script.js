@@ -18,8 +18,7 @@ function show_success(input){
   form_control.className ='form-control success'
 }
 
-// check email is valid
-
+// check email is valid (regex is copy pased)
 function is_email_valid(email){
   return String(email)
     .toLowerCase()
@@ -28,35 +27,25 @@ function is_email_valid(email){
     );
 }
 
+// check required fields
+function check_required(input_arr){
+  input_arr.forEach(input => {
+    if(input.value.trim() == ''){
+      show_error(input, `${get_field_name(input)} is required`)
+    }else{
+      show_success(input)
+    }
+  })
+}
+
+function get_field_name(input){
+  return input.title.charAt(0).toUpperCase().concat(input.title.slice(1))
+}
+
 // event listener
 form.addEventListener('submit', (event) => {
   event.preventDefault()
 
-  if(username.value === ''){
-    show_error(username,'username is required')
-  }else{
-    show_success(username)
-  }
-
-
-  if(email.value === ''){
-    show_error(email,'email is required')
-  }else if(!is_email_valid(email.value)){
-    show_error(email,'email is not valid')
-  }else{
-    show_success(email)
-  }
-
-  if(password.value === ''){
-    show_error(password,'password is required')
-  }else{
-    show_success(password)
-  }
-
-  if(password2.value === ''){
-    show_error(password2,'password 2 is required')
-  }else{
-    show_success(password2)
-  }
-
+  
+  check_required([username,email,password,password2])
 })
