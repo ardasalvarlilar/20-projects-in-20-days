@@ -19,12 +19,14 @@ function show_success(input){
 }
 
 // check email is valid (regex is copy pased)
-function is_email_valid(email){
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    );
+function check_email(input){
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+  if (re.test(input.value.trim())) {
+    show_success(input)
+  } else {
+    show_error(input,'Email is not valid.')
+  }
 }
 
 // check required fields
@@ -38,6 +40,24 @@ function check_required(input_arr){
   })
 }
 
+// check input length
+function check_length(input,min,max){
+  if(input.value.length < min){
+    show_error(input,`${get_field_name(input)} must be at least ${min} characters`)
+  }else if(input.value.length > max){
+    show_error(input,`${get_field_name(input)}  must be maximum ${max} characters`)
+  }else{
+    show_success(input)
+  }
+}
+
+// check passwords match
+function check_passwords_match(pass,repass){
+  if(pass.value !== repass.value){
+    show_error(repass,'passwords do not match')
+  }
+}
+
 function get_field_name(input){
   return input.title.charAt(0).toUpperCase().concat(input.title.slice(1))
 }
@@ -48,4 +68,8 @@ form.addEventListener('submit', (event) => {
 
   
   check_required([username,email,password,password2])
+  check_length(username,3,15)
+  check_length(password,6,25)
+  check_email(email)
+  check_passwords_match(password,password2)
 })
