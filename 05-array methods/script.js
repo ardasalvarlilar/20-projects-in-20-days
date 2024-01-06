@@ -21,6 +21,15 @@ async function get_ramdom_user(){
   add_data(new_user)
 }
 
+// double moneys
+function double_money(){
+  data = data.map(user => {
+    return { ...user,money: user.money * 2 }
+  })
+
+  update_dom()
+}
+
 // add new obj to data arr
 function add_data(obj){
   data.push(obj)
@@ -47,3 +56,4 @@ function format_money(number){
 
 // event listener
 add_user_btn.addEventListener('click',get_ramdom_user)
+double_btn.addEventListener('click', double_money)
