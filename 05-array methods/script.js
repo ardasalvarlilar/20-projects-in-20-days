@@ -42,6 +42,14 @@ function show_millionaires(){
   update_dom()
 }
 
+// calculate the total wealth
+function calculate_wealth(){
+  const wealth = data.reduce((acc,user) => acc + user.money,0)
+  const wealth_el = document.createElement('div')
+  wealth_el.innerHTML = `<h3>total wealth: <strong>${format_money(wealth)}</strong></h3>`
+  main.appendChild(wealth_el)
+}
+
 // add new obj to data arr
 function add_data(obj){
   data.push(obj)
@@ -71,3 +79,4 @@ add_user_btn.addEventListener('click',get_ramdom_user)
 double_btn.addEventListener('click', double_money)
 sort_btn.addEventListener('click',sort_by_richest)
 show_millionaires_btn.addEventListener('click',show_millionaires)
+calculate_wealth_btn.addEventListener('click',calculate_wealth)
