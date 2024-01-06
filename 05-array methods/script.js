@@ -30,6 +30,11 @@ function double_money(){
   update_dom()
 }
 
+function sort_by_richest(){
+  data.sort((a,b) => b.money - a.money)
+  update_dom()
+}
+
 // add new obj to data arr
 function add_data(obj){
   data.push(obj)
@@ -57,3 +62,4 @@ function format_money(number){
 // event listener
 add_user_btn.addEventListener('click',get_ramdom_user)
 double_btn.addEventListener('click', double_money)
+sort_btn.addEventListener('click',sort_by_richest)
