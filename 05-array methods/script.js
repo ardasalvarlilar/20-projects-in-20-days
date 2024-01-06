@@ -30,8 +30,15 @@ function double_money(){
   update_dom()
 }
 
+// sort users by richest
 function sort_by_richest(){
   data.sort((a,b) => b.money - a.money)
+  update_dom()
+}
+
+// filter only millionaires
+function show_millionaires(){
+  data = data.filter(user =>  user.money > 1000000)
   update_dom()
 }
 
@@ -63,3 +70,4 @@ function format_money(number){
 add_user_btn.addEventListener('click',get_ramdom_user)
 double_btn.addEventListener('click', double_money)
 sort_btn.addEventListener('click',sort_by_richest)
+show_millionaires_btn.addEventListener('click',show_millionaires)
